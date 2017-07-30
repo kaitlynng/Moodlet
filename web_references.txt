@@ -1,0 +1,8 @@
+Kairos Javascript API:
+https://github.com/kairosinc/api-examples/tree/master/demo/emotion/js
+https://demo.kairos.com/emotion/
+https://github.com/kairosinc/api-examples/blob/master/demo/emotion/js/emoDemoApp.js
+
+Integrating JS Libraries into React:
+https://facebook.github.io/react/docs/integrating-with-other-libraries.html
+http://tech.oyster.com/using-react-and-jquery-together/
