@@ -20,15 +20,11 @@ class RetrievePhotos extends React.Component {
     )
   };
 
-  _getPhotos = async () => {
+  async _getPhotos() {
     const { Permissions } = Expo;
     const { status } = Permissions.getAsync(Permissions.READ_EXTERNAL_STORAGE);
     if (status === 'granted') {
-      CameraRoll.getPhotos({
-          first: 3,
-          assetType: 'All'
-      })
-      .then(r => { this.setState({ images: r.edges }); console.log(images)});
+      alert('Status granted!')
     } else {
       alert('Please allow external storage!')
     };
