@@ -12,6 +12,10 @@ import {
 
 import { MonoText } from '../components/StyledText';
 
+import Button from '../components/ButtonTest';
+
+import RetrievePhotos from '../components/RetrievePhotos';
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -47,6 +51,14 @@ export default class HomeScreen extends React.Component {
                 screens/HomeScreen.js
               </MonoText>
             </View>
+
+            <Button whenPressed={() => console.log('Button Pressed')}>
+              <Text>
+                Button
+              </Text>
+            </Button>
+
+            <RetrievePhotos />
 
             <Text style={styles.getStartedText}>
               Change this text and your app will automatically reload.
