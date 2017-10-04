@@ -39,7 +39,7 @@ export default class HomeScreen extends React.Component {
             {this._maybeRenderDevelopmentModeWarning()}
 
             <Text style={styles.getStartedText}>
-              Yada yada changing stuff does this happen heloo hello
+              hello facesender
             </Text>
 
             <View

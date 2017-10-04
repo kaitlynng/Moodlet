@@ -7,21 +7,28 @@
     "sdkVersion": "18.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
-    "primaryColor": "#cccccc",
-    "icon": "./assets/icons/app-icon.png",
-    "notification": {
-      "icon": "./assets/icons/notification-icon.png",
-      "color": "#000000"
-    },
-    "loading": {
-      "icon": "./assets/icons/loading-icon.png",
-      "hideExponentText": false
-    },
-    "packagerOpts": {
-      "assetExts": ["ttf"]
-    },
-    "ios": {
-      "supportsTablet": true
+  "primaryColor": "#3A4767",
+  "icon": "https://s13.postimg.org/wflosfalj/logo.png",
+  "notification": {
+    "icon": "https://s13.postimg.org/wflosfalj/logo.png",
+    "color": "#000000",
+    "androidMode": "default",
+    "androidCollapsedTitle": "#{unread_notifications} new interactions"
+  },
+  "loading": {
+    "icon": "https://imgur.com/a/w32tk.png",
+    "backgroundImage": "http://i.imgur.com/zsnPy5z.png",
+    "backgroundColor": "#FFF",
+    "hideExponentText": true
+  },
+  "appKey": "main",
+  "androidStatusBarColor": "#000000",
+  "androidShowExponentNotificationInShellApp": false,
+  "packagerOpts": {
+    "assetExts": ["ttf", "mp4"]
+  },
+  "ios": {
+    "supportsTablet": true
     },
     "permissions": [
       "android.permission.CAMERA",
