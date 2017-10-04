@@ -3,10 +3,12 @@
 <head>
   <meta charset='UTF-8'>
   <title>Upload photos</title>
-  <script src='Scripts/jquery-3.1.1.min.js'></script>
-  <script src='Scripts/jquery.form.min.js'></script>
+  <script src='/scripts/jquery-3.2.1.min.js'></script>
+  <script src='/scripts/jquery.form.min.js'></script>
+  <script src='/kairos/methods.js'></script>
   <script>
     $(document).ready(function() {
+      console.log('Ducument ready!');
       var options = {
         beforeSubmit: showRequest,
         afterSubmit: showResponse
@@ -27,10 +29,18 @@
     };
   </script>
 </head>
+
 <body>
-  <form id='uploader' enctype='multipart/form-data' action='/upload' method='post'>
-    <input type='file' name='uploader' accept='application/x-zip-compressed,image/*' multiple />
-    <input type='submit' name='submit' id='btnSubmit' value='upload'/>
-  </form>
+  <div id='checkAuth'>
+    <h3>Checking authentication...</h3>
+  </div>
+  <div id='methods'>
+    <h3>Testing methods:</h3>
+    <form id='uploader' enctype='multipart/form-data' action='/upload' method='post'>
+      <input type='file' name='uploader' accept='application/x-zip-compressed,image/*' multiple />
+      <input type='submit' name='submit' id='btnSubmit' value='upload'/>
+    </form>
+  </div>
+
 </body>
 </html>
