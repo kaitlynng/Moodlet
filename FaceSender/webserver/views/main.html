@@ -3,43 +3,58 @@
 <head>
   <meta charset='UTF-8'>
   <title>Upload photos</title>
-  <script src='/scripts/jquery-3.2.1.min.js'></script>
-  <script src='/scripts/jquery.form.min.js'></script>
-  <script src='/kairos/methods.js'></script>
-  <script>
-    $(document).ready(function() {
-      console.log('Ducument ready!');
-      var options = {
-        beforeSubmit: showRequest,
-        afterSubmit: showResponse
-      };
-      $('#uploader').submit(function() {
-        $(this).ajaxSubmit(options);
-        return false; //idk why
-      });
-    });
-
-    function showRequest(formData, jqform, options) {
-      alert('Upload is starting...');
-      return true;
-    };
-
-    function showResponse(responseText, statusText, xhr, $form) {
-      alert('Status: ' + statusText + '\n\nResponse: \n' + responseText);
-    };
-  </script>
+  <script type='text/javascript' src='../scripts/jquery-3.2.1.min.js'></script>
+  <script type='text/javascript' src='../scripts/jquery.form.min.js'></script>
+  <script type='text/javascript' src='../kairos/kairos.js'></script>
+  <script type='text/javascript' src='../kairos/methods.js'></script>
 </head>
 
 <body>
+  <div id='enterKeys'>
+    <h3>Enter API Keys</h3>
+    <form>
+      APP ID: <input type='text' id='app_id' value=''>
+       APP KEY: <input type='text' id='app_key' value=''>
+      <input type='submit' id='btn_enterKeys' value='Enter'>
+    </form>
+  </div>
   <div id='checkAuth'>
-    <h3>Checking authentication...</h3>
+    <p>Please enter API Keys</p>
   </div>
   <div id='methods'>
     <h3>Testing methods:</h3>
-    <form id='uploader' enctype='multipart/form-data' action='/upload' method='post'>
-      <input type='file' name='uploader' accept='application/x-zip-compressed,image/*' multiple />
-      <input type='submit' name='submit' id='btnSubmit' value='upload'/>
-    </form>
+
+    <div id='enroll'>
+      <h4>Enroll Subjects in Gallery</h4>
+      <form id='enrollForm'>
+        Image (local file): <input type='file' name='image_upload' accept='application/x-zip-compressed,image/*' multiple />
+        Gallery Name: <input type='text' class='gallery-name' name='gallery_name'>
+        Subject ID: <input type='text' class='subject-id' name='subject_id'>
+        <input type='submit' id='btn_enroll' value='Enter'>
+      </form>
+    </div>
+
+    <div id='viewSubjectsInGallery'>
+      <h4>View Subjects in Gallery</h4>
+      <form id='viewSubjectsInGalleryForm'>
+        Gallery name: <input type='text' id='gallery_name' value=''>
+        <input type='submit' id='btn_viewSubjectsInGallery' value='Enter'>
+      </form>
+    </div>
+
+    <div id='upload'>
+      <h4>Test Upload</h4>
+      <form id='uploader' enctype='multipart/form-data' action='/upload' method='post'>
+        <input type='file' name='uploader' accept='application/x-zip-compressed,image/*' multiple />
+        <input type='submit' name='submit' id='btnUpload' value='upload'/>
+      </form>
+    </div>
+
+    <div>
+      <h4>Response:</h4>
+      <div id='viewData'></div>
+    </div>
+
   </div>
 
 </body>
