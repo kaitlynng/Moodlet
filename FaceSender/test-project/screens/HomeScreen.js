@@ -22,7 +22,7 @@ class App extends React.Component {
     console.log('Pressed');
 
     this.setState({
-      title: 'Photos being retrieved!',
+      title: 'Photos retrieved!',
     });
   }
 
@@ -38,11 +38,7 @@ class App extends React.Component {
           <Text style={styles.textLarge}>
             {this.state.title}
           </Text>
-
-          <Text style={styles.textSmall}>
-            (Open up main.js to start working)
-          </Text>
-        </View>
+      </View>
 
         <View style={styles.section}>
           <Button
