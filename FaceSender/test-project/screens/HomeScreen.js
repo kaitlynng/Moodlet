@@ -1,3 +1,5 @@
+const { TelegramClient } = require('messaging-api-telegram');
+
 import React from 'react';
 import {
   View, // https://facebook.github.io/react-native/docs/view.html
@@ -6,6 +8,8 @@ import {
   Image, // https://facebook.github.io/react-native/docs/image.html
   Button, // https://facebook.github.io/react-native/docs/button.html
 } from 'react-native';
+
+const client = TelegramClient.connect('490953513:AAGEU_TRCEU3aev6_4nu8VfNcccGivU36tk');
 
 class App extends React.Component {
   constructor() {
@@ -24,7 +28,16 @@ class App extends React.Component {
     this.setState({
       title: 'Photos retrieved!',
     });
-  }
+
+  client.sendPhoto(259921505, 'https://i.imgur.com/NDqNcXi.png', {
+  caption: 'Hey this is your photo!',
+  disable_notification: false,
+  })
+  .catch((error) => {
+    console.log("Api call error");
+  });
+}
+
 
   render() {
     return (
