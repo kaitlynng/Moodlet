@@ -1,5 +1,3 @@
-const { TelegramClient } = require('messaging-api-telegram');
-
 import React from 'react';
 import {
   View, // https://facebook.github.io/react-native/docs/view.html
@@ -7,9 +5,76 @@ import {
   StyleSheet, // https://facebook.github.io/react-native/docs/stylesheet.html
   Image, // https://facebook.github.io/react-native/docs/image.html
   Button, // https://facebook.github.io/react-native/docs/button.html
-} from 'react-native';
+  } from 'react-native';
+import Expo from 'expo';
 
-const client = TelegramClient.connect('490953513:AAGEU_TRCEU3aev6_4nu8VfNcccGivU36tk');
+import {
+  StackNavigator,
+} from 'react-navigation';
+
+
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Home',
+  };
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+
+
+      <View style={styles.section}>
+        <Button
+        title="Retrieve Photos"
+        color={'#16a085'}
+        accessibilityLabel="See an informative alert"
+          onPress= { ()=> navigate('Profile') }>Navigate to Profile
+        >
+        </Button>
+      </View>
+
+
+
+
+    );
+}
+}
+
+
+
+class ProfileScreen extends React.Component {
+
+  static navigationOptions = {
+    title: 'Photos',
+  };
+  render() {
+    const { navigate } = this.props.navigation;
+    return (
+      <View style={styles.container}>
+    </View>
+  );
+}
+}
+
+
+
+  const NavigationApp = StackNavigator({
+    Home: { screen: HomeScreen },
+    Profile: { screen: ProfileScreen },
+  },{
+    navigationOptions:{
+      headerStyle:{
+        marginTop:Expo.Constants.statusBarHeight
+      }
+    }
+  }
+);
+
+  export default class APP extends React.Component {
+    render() {
+      return <NavigationApp />;
+    }
+  }
+
 
 class App extends React.Component {
   constructor() {
@@ -28,16 +93,7 @@ class App extends React.Component {
     this.setState({
       title: 'Photos retrieved!',
     });
-
-  client.sendPhoto(259921505, 'https://i.imgur.com/NDqNcXi.png', {
-  caption: 'Hey this is your photo!',
-  disable_notification: false,
-  })
-  .catch((error) => {
-    console.log("Api call error");
-  });
-}
-
+  }
 
   render() {
     return (
@@ -93,5 +149,3 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
 });
-
-export default App;
