@@ -4,6 +4,7 @@
   "description": "facial recognition",
   "main": "index.js",
   "dependencies": {
+    "cloudinary": "^1.9.1",
     "express": "^4.16.1",
     "express3-handlebars": "^0.5.2",
     "jquery": "^3.2.1",

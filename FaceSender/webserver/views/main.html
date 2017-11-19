@@ -6,10 +6,17 @@
   <script type='text/javascript' src='../scripts/jquery-3.2.1.min.js'></script>
   <script type='text/javascript' src='../scripts/jquery.form.min.js'></script>
   <script type='text/javascript' src='../kairos/kairos.js'></script>
-  <script type='text/javascript' src='../kairos/methods.js'></script>
+  <script type='text/javascript' src='../kairos/methodstest.js'></script>
 </head>
 
 <body>
+  <div id='retrieveCloudinary'>
+    <h3>Test Cloudinary Retrieve Photos</h3>
+    <form id='retrieveCloudinaryForm'>
+      <input type='submit' id='btn_retrieveCloudinary' value='Get Photos'/>
+    </form>
+  </div>
+
   <div id='enterKeys'>
     <h3>Enter API Keys</h3>
     <form>
@@ -40,7 +47,7 @@
         Gallery name: <input type='text' class='gallery-name' name='gallery_name' value=''>
         <input type='submit' id='btn_viewSubjectsInGallery' value='Enter'>
       </form>
-    </div>
+    </div>'
 
     <div id='recogniseImage'>
       <h4>Test for Image Recognition</h4>
@@ -55,15 +62,14 @@
       <h4>Test Upload to Database</h4>
       <form id='uploader' enctype='multipart/form-data' action='/upload' method='post'>
         <input type='file' id='uploader' accept='application/x-zip-compressed,image/*' multiple />
-        <input type='submit' id='submit' id='btnUpload' value='upload'/>
+        <input type='submit' name='submit' id='btnUpload' value='upload'/>
       </form>
     </div>
+  </div>
 
-    <div>
-      <h4>Response:</h4>
-      <div id='viewData'></div>
-    </div>
-
+  <div>
+    <h4>Response:</h4>
+    <div id='viewData'></div>
   </div>
 
 </body>

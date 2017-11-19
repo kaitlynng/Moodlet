@@ -1,5 +1,19 @@
 // var Kairos = require('./kairos');
 
+cloudinaryFunc = {
+  setActions: function() {
+    var self = this;
+    $('#btn_retrieveCloudinary').click(function(e) {
+      e.preventDefault();
+      $('#viewData').empty();
+      $.post('/retrieveCloudinary', function(data) {
+        console.log('successful...?')
+        $('#viewData').html(data);
+      });
+    })
+  }
+}
+
 checkAuth = {
   init: function () {
     $('#methods').hide();
@@ -134,4 +148,5 @@ var parseImageData = function(imageData) {
 
 $(document).ready(function() {
   checkAuth.init();
+  cloudinaryFunc.setActions();
 });
