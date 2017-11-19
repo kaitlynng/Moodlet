@@ -9,10 +9,12 @@ import cacheAssetsAsync from './utilities/cacheAssetsAsync';
 import { StackNavigator } from 'react-navigation'
 import HomeScreen from './screens/HomeScreen'
 import PhotoScreen from './screens/PhotoScreen'
+import LoadingScreen from './screens/LoadingScreen'
 
 const Navigation = StackNavigator({
   First: {screen: HomeScreen},
-  Second: {screen: PhotoScreen}
+  Second: {screen: PhotoScreen},
+  Third: {screen: LoadingScreen}
 });
 
 export default Navigation; // Export your root navigator as the root component

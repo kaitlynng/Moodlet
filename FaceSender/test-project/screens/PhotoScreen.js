@@ -4,6 +4,7 @@ import {
     StyleSheet,
     Text,
     View,
+    ScrollView,
     Button,
     TouchableWithoutFeedback,
     Dimensions,
@@ -14,78 +15,90 @@ import ImageElement from '../components/ImageElement';
 
 const util = require('util');
 
-export class PhotoScreen extends React.Component {
+export default class PhotoScreen extends React.Component {
   static navigationOptions = {
     title: 'PhotoScreen',
   };
   render () {
     console.log("this.props.navigation = " + util.inspect(this.props.navigation, false, null));
+    var {navigate} = this.props.navigation;
     return(
       <View>
         <Text>
         Photos
         </Text>
+        <Button
+        onPress={
+          () => navigate("Third")
+        }
+        title = "Upload"
+        />
         </View>
+
+
           );
+  }
+
+  state ={
+      modalVisible: false,
+      modalImage: require('../assets/images/img1.jpg'),
+      images: [
+          require('../assets/images/img1.jpg'),
+          require('../assets/images/img2.jpg'),
+          require('../assets/images/img3.jpg'),
+          require('../assets/images/img4.jpg'),
+          require('../assets/images/img5.jpeg'),
+          require('../assets/images/img6.jpeg'),
+                ]
+  }
+
+  setModalVisible(visible, imageKey) {
+      this.setState({ modalImage: this.state.images[imageKey] });
+      this.setState({ modalVisible: visible });
+  }
+
+  getImage() {
+     return this.state.modalIamge;
+  }
+
+  render() {
+
+      let images = this.state.images.map((val, key) => {
+          return <TouchableWithoutFeedback key={key}
+                      onPress={() => { this.setModalVisible(true, key)}}>
+                      <View style={styles.imagewrap}>
+                          <ImageElement imgsource={val}></ImageElement>
+                      </View>
+                  </TouchableWithoutFeedback>
+
+      });
+
+      return (
+           <View style={styles.container}>
+
+               <Modal style={styles.modal} animationType={'fade'}
+                      transparent={true} visible={this.state.modalVisible}
+                      onRequestClose={() => {}}>
+
+                      <View style={styles.modal}>
+                          <Text style={styles.text}
+                              onPress={() => {this.setModalVisible(false)}}>Close</Text>
+                           <ImageElement imgsource={this.state.modalImage}></ImageElement>
+                      </View>
+
+               </Modal>
+
+               {images}
+           </View>
+
+      );
   }
 }
 
-export default class App extends Component {
+/*export class App extends Component {
 
-    state ={
-        modalVisible: false,
-        modalImage: require('../assets/images/img1.jpg'),
-        images: [
-            require('../assets/images/img1.jpg'),
-            require('../assets/images/img2.jpg'),
-            require('../assets/images/img3.jpg'),
-            require('../assets/images/img4.jpg'),
-            require('../assets/images/img5.jpg'),
-        ]
-    }
 
-    setModalVisible(visible, imageKey) {
-        this.setState({ modalImage: this.state.images[imageKey] });
-        this.setState({ modalVisible: visible });
-    }
-
-    getImage() {
-       return this.state.modalIamge;
-    }
-
-    render() {
-
-        let images = this.state.images.map((val, key) => {
-            return <TouchableWithoutFeedback key={key}
-                        onPress={() => { this.setModalVisible(true, key)}}>
-                        <View style={styles.imagewrap}>
-                            <ImageElement imgsource={val}></ImageElement>
-                        </View>
-                    </TouchableWithoutFeedback>
-
-        });
-
-        return (
-             <View style={styles.container}>
-
-                 <Modal style={styles.modal} animationType={'fade'}
-                        transparent={true} visible={this.state.modalVisible}
-                        onRequestClose={() => {}}>
-
-                        <View style={styles.modal}>
-                            <Text style={styles.text}
-                                onPress={() => {this.setModalVisible(false)}}>Close</Text>
-                             <ImageElement imgsource={this.state.modalImage}></ImageElement>
-                        </View>
-
-                 </Modal>
-
-                 {images}
-             </View>
-
-        );
-    }
-}
+}*/
 
 const styles = StyleSheet.create({
     container: {
