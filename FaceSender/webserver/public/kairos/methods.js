@@ -32,26 +32,72 @@ checkAuth = {
       };
     });
 
-    $('#btn_enroll').click(function() {
+    $('#btn_enroll').click(function(e) {
+      e.preventDefault();
       $('#viewData').empty();
       if (self.validate($('#enrollForm')) == true) {
-        galleryName = $(enrollForm.gallery_name)
+        galleryName = $('#enrollForm .gallery-name').val();
+        subjectId = $('#enrollForm .subject-id').val();
+        console.log('validated ' + galleryName + ' ' + subjectId);
+        if ($('#enrollForm .image-upload').val() != '') {
+          numFiles = $('#enrollForm .image-upload')[0].files.length;
+          files = $('#enrollForm .image-upload')[0].files;
+          console.log('Number of files: ' + numFiles);
+          for (i=0; i < numFiles; i++) {
+            (function(file) {
+              var name = file.name;
+              var reader = new FileReader();
+              console.log("file reader for "+ name + " created!");
+              reader.readAsDataURL(file);
+              reader.onloadend = function () {
+                var fileData = parseImageData(reader.result);
+                self.kairos.enroll(fileData, galleryName, subjectId, self.success_cb);
+              };
+            })(files[i]);
+          };
+        } else {
+          console.log('Image not uploaded!');
+        }
+      } else {
+        console.log('validation error!');
       }
-
     });
 
-    $('#btnViewSubjectsInGallery').click(function() {
+    $('#btn_viewSubjectsInGallery').click(function(e) {
+      e.preventDefault();
       $('#viewData').empty();
+      if (self.validate($('#viewSubjectsInGalleryForm input')) == true) {
+        alert('validated');
+        galleryName = $('#viewSubjectsInGalleryForm .gallery-name').val();
+        console.log('validated ' + galleryName);
+        self.kairos.viewSubjectsInGallery(galleryName, self.success_cb);
+      };
+    });
 
+    $('#btn_recogniseImage').click(function(e) {
+      e.preventDefault();
+      $('#viewData').empty();
+      if (self.validate($('#recogniseImageForm input')) == true) {
+        galleryName = $('#recogniseImageForm .gallery-name').val();
+        if ($('#recogniseImageForm .image-upload').val() != '') {
+          file = $('#recogniseImageForm .image-upload')[0].files[0];
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onloadend = function() {
+            var fileData = parseImageData(reader.result);
+            self.kairos.recognize(fileData, galleryName, self.success_cb);
+          };
+        };
+      };
     });
   },
 
   success_cb: function(data) { //set up callback method?? idek what this means
-    $("#viewData").empty();
-    $("#viewData").html(data.responseText);
-    $("input:text").val("");
-    $("input:file").val("");
-  }
+    viewData = $('#viewData').html();
+    $("#viewData").html(viewData + '<br /> <br />' + data.responseText);
+    $('input :text').val('');
+    $('input :file').val('');
+  },
 
   validate: function(obj) {
     var isValid = true;
@@ -59,20 +105,32 @@ checkAuth = {
     var fileUploaded = false;
     if(obj.find('.image-upload').val() != '') {
       fileUploaded = true;
+      console.log(obj.find('.image-upload').val());
     };
     obj.find('input').each(function() {
       if ($(this).attr('type') == 'text' && $(this).val() == '') {
         isValid = false;
-        errorAlert = erroAlert + 'Enter value in ' + $(this).attr('name') + ' pls \n';
+        errorAlert = errorAlert + 'Enter value in ' + $(this).attr('name') + ' pls \n';
       }
     });
     if(isValid == false) {
       alert(errorAlert);
       console.log(errorAlert)
     }
+    console.log('validation state: ' + isValid);
     return isValid;
-  }
+  },
 };
+
+var parseImageData = function(imageData) {
+  imageData = imageData.replace("data:image/jpeg;base64,", "");
+  imageData = imageData.replace("data:image/jpg;base64,", "");
+  imageData = imageData.replace("data:image/png;base64,", "");
+  imageData = imageData.replace("data:image/gif;base64,", "");
+  imageData = imageData.replace("data:image/bmp;base64,", "");
+  return imageData;
+};
+
 
 $(document).ready(function() {
   checkAuth.init();

@@ -27,9 +27,9 @@
     <div id='enroll'>
       <h4>Enroll Subjects in Gallery</h4>
       <form id='enrollForm'>
-        Image (local file): <input type='file' name='image_upload' accept='application/x-zip-compressed,image/*' multiple />
-        Gallery Name: <input type='text' class='gallery-name' name='gallery_name'>
-        Subject ID: <input type='text' class='subject-id' name='subject_id'>
+        Image (local file): <input type='file' class='image-upload' name='image_upload' accept='application/x-zip-compressed,image/*' multiple />
+        Gallery Name: <input type='text' class='gallery-name' name='gallery_name' value=''>
+        Subject ID: <input type='text' class='subject-id' name='subject_id' value=''>
         <input type='submit' id='btn_enroll' value='Enter'>
       </form>
     </div>
@@ -37,16 +37,25 @@
     <div id='viewSubjectsInGallery'>
       <h4>View Subjects in Gallery</h4>
       <form id='viewSubjectsInGalleryForm'>
-        Gallery name: <input type='text' id='gallery_name' value=''>
+        Gallery name: <input type='text' class='gallery-name' name='gallery_name' value=''>
         <input type='submit' id='btn_viewSubjectsInGallery' value='Enter'>
       </form>
     </div>
 
+    <div id='recogniseImage'>
+      <h4>Test for Image Recognition</h4>
+      <form id='recogniseImageForm'>
+        Image (local file): <input type='file' class='image-upload' name='image_upload' accept='application/x-zip-compressed,image/*' multiple />
+        Gallery Name: <input type='text' class='gallery-name' name='gallery_name' value=''>
+        <input type='submit' id='btn_recogniseImage' value='Enter'>
+      </form>
+    </div>
+
     <div id='upload'>
-      <h4>Test Upload</h4>
+      <h4>Test Upload to Database</h4>
       <form id='uploader' enctype='multipart/form-data' action='/upload' method='post'>
-        <input type='file' name='uploader' accept='application/x-zip-compressed,image/*' multiple />
-        <input type='submit' name='submit' id='btnUpload' value='upload'/>
+        <input type='file' id='uploader' accept='application/x-zip-compressed,image/*' multiple />
+        <input type='submit' id='submit' id='btnUpload' value='upload'/>
       </form>
     </div>
 
