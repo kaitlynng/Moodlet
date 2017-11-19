@@ -5,12 +5,56 @@ import {
   StyleSheet, // https://facebook.github.io/react-native/docs/stylesheet.html
   Image, // https://facebook.github.io/react-native/docs/image.html
   Button, // https://facebook.github.io/react-native/docs/button.html
+  Dimensions,
+  TextInput
   } from 'react-native';
 import Expo from 'expo';
 
 import {
   StackNavigator,
 } from 'react-navigation';
+
+import ImageElement from './components/ImageElement'
+
+export default class Photos extends Component {
+
+  state = {
+    images: [
+      { title: 'Image 1', img: require('.assets/images/img1.jpg') },
+      { title: 'Image 1', img: require('.assets/images/img2.jpg') },
+      { title: 'Image 1', img: require('.assets/images/img3.jpg') },
+      { title: 'Image 1', img: require('.assets/images/img4.jpg') },
+      { title: 'Image 1', img: require('.assets/images/img5.jpg') },
+      { title: 'Image 1', img: require('.assets/images/img6.jpg') },
+    ],
+    imagesReference: [],
+    text: '',
+  }
+
+componentDidMount() {
+  this.setState({ imagesReference: this.state.images });
+}
+
+render() {
+
+  Let images = this.state.images.map((val, key) => {
+    return <View key={key} style={styles.imagewrap}
+    <ImageElement imgsource={val.img} />
+    </view>
+
+  });
+
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.photogrid}>
+      {images}
+    </View>
+  );
+}
+}
+
+
 
 
 class HomeScreen extends React.Component {
@@ -20,8 +64,6 @@ class HomeScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-
-
       <View style={styles.section}>
         <Button
         title="Retrieve Photos"
@@ -31,13 +73,11 @@ class HomeScreen extends React.Component {
         >
         </Button>
       </View>
-
-
-
-
     );
 }
 }
+
+
 
 
 
