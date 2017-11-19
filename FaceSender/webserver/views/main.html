@@ -10,13 +10,6 @@
 </head>
 
 <body>
-  <div id='retrieveCloudinary'>
-    <h3>Test Cloudinary Retrieve Photos</h3>
-    <form id='retrieveCloudinaryForm'>
-      <input type='submit' id='btn_retrieveCloudinary' value='Get Photos'/>
-    </form>
-  </div>
-
   <div id='enterKeys'>
     <h3>Enter API Keys</h3>
     <form>
@@ -28,8 +21,18 @@
   <div id='checkAuth'>
     <p>Please enter API Keys</p>
   </div>
+
   <div id='methods'>
-    <h3>Testing methods:</h3>
+    <div id='retrieveCloudinary'>
+      <h3>Test Cloudinary Retrieve Photos and Recognition</h3>
+      <form id='retrieveCloudinaryForm'>
+        Gallery Name: <input type='text' class='gallery-name' name='gallery_name' value=''>
+        Event Name: <input type='text' class='event-name' name='event_name' value=''>
+        <input type='submit' id='btn_retrieveCloudinary' value='Get Photos'/>
+      </form>
+    </div>
+
+    <h3>Testing Kairos methods:</h3>
 
     <div id='enroll'>
       <h4>Enroll Subjects in Gallery</h4>

@@ -19,8 +19,36 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/retrieveCloudinary', function(req, res) {
+  app.post('/retrieveCloudinary', function(eventName, req, res) {
+    console.log('eventname: ' + eventName);
     console.log('entered retrieveCloudinary');
-    var result = cloud.getPhotos();
+    var data;
+    cloud.getPhotos(eventName).then(function(result) {
+        data = result;
+        console.log('success!');
+        console.log(JSON.stringify(data.resources[0].url));
+        return data;
+    }).catch(function(err) {
+      console.log('Error: ' + JSON.stringify(err));
+    });
   });
+
+
+/*  app.post('/retrieveCloudinary', function(req, res) {
+    console.log('entered retrieveCloudinary');
+    var data;
+    cloud.getPhotos().then(function(result) {
+        console.log(JSON.stringify(result.resources[0].url));
+        data = result;
+    }).catch(function(err) {
+      console.log('Error: ' + err)
+    });
+    return data;
+  });
+
+*/
+  app.post('/RNRequest', function(params, req, res) {
+    console.log('entered RNRequest');
+    var result = cloud.RNGetPhotos(params.galleryName, params.eventName);
+  })
 };

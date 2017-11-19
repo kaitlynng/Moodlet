@@ -6,18 +6,26 @@ cloudinaryFunc = {
     $('#btn_retrieveCloudinary').click(function(e) {
       e.preventDefault();
       $('#viewData').empty();
-      $.post('/retrieveCloudinary', function(data) {
-        console.log('successful...?')
-        $('#viewData').html(data);
-      });
-    })
+      if ('#retrieveCloudinaryForm :input' != '') {
+        galleryName = $('#retrieveCloudinaryForm .gallery-name').val();
+        eventName = JSON.stringify($('#retrieveCloudinaryForm .event-name').val());
+        $.post('/retrieveCloudinary', eventName)
+          .done(function(data) {
+            console.log('successful...?' + JSON.stringify(data));
+            $('#viewData').html(data);
+          }, function(err) {
+            console.log('Error in jQuery! ' + err);
+          });
+      };
+    });
   }
-}
+};
 
 checkAuth = {
   init: function () {
     $('#methods').hide();
     this.setActions();
+    cloudinaryFunc.setActions();
   },
   setActions: function() {
     var self = this;
@@ -148,5 +156,4 @@ var parseImageData = function(imageData) {
 
 $(document).ready(function() {
   checkAuth.init();
-  cloudinaryFunc.setActions();
 });
