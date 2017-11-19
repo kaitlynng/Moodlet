@@ -19,15 +19,15 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/retrieveCloudinary', function(eventName, req, res) {
-    console.log('eventname: ' + eventName);
+  app.post('/retrieveCloudinary', function(req, res) {
+    console.log(JSON.stringify(req.body));
     console.log('entered retrieveCloudinary');
     var data;
-    cloud.getPhotos(eventName).then(function(result) {
+    cloud.getPhotos(JSON.stringify(req.body)).then(function(result) {
         data = result;
         console.log('success!');
         console.log(JSON.stringify(data.resources[0].url));
-        return data;
+        return res.send(data);
     }).catch(function(err) {
       console.log('Error: ' + JSON.stringify(err));
     });

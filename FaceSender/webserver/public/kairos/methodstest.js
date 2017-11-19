@@ -8,7 +8,7 @@ cloudinaryFunc = {
       $('#viewData').empty();
       if ('#retrieveCloudinaryForm :input' != '') {
         galleryName = $('#retrieveCloudinaryForm .gallery-name').val();
-        eventName = JSON.stringify($('#retrieveCloudinaryForm .event-name').val());
+        eventName = $('#retrieveCloudinaryForm .event-name').val();
         $.post('/retrieveCloudinary', eventName)
           .done(function(data) {
             console.log('successful...?' + JSON.stringify(data));
