@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  Stylesheet,
-  Text,
-  Image
-  } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+
 
 export default class ImageElement extends Component {
-  render(){
-    return (
-      <Image source={this.props.imgsource} />
-    );
-  }
+    render() {
+        return (
+            <Image source={this.props.imgsource} style={styles.image}></Image>
+        );
+    }
 }
 
-const styles = StyleSheet.Create({
-  container: {
-    flex: 1
-    width: null
-    alignSelf: 'stretch',
-  }
-}
-);
+const styles = StyleSheet.create({
+    image: {
+        flex: 1,
+        width: null,
+        alignSelf: 'stretch',
+    }
+
+});

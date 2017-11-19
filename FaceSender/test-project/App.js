@@ -6,7 +6,18 @@ import RootNavigation from './navigation/RootNavigation';
 
 import cacheAssetsAsync from './utilities/cacheAssetsAsync';
 
-export default class AppContainer extends React.Component {
+import { StackNavigator } from 'react-navigation'
+import HomeScreen from './screens/HomeScreen'
+import PhotoScreen from './screens/PhotoScreen'
+
+const Navigation = StackNavigator({
+  First: {screen: HomeScreen},
+  Second: {screen: PhotoScreen}
+});
+
+export default Navigation; // Export your root navigator as the root component
+
+/*export default class AppContainer extends React.Component {
   state = {
     appIsReady: false,
   };
@@ -49,7 +60,7 @@ export default class AppContainer extends React.Component {
       return <AppLoading />;
     }
   }
-}
+}*/
 
 const styles = StyleSheet.create({
   container: {
