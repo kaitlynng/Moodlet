@@ -19,25 +19,6 @@ export default class PhotoScreen extends React.Component {
   static navigationOptions = {
     title: 'PhotoScreen',
   };
-  render () {
-    console.log("this.props.navigation = " + util.inspect(this.props.navigation, false, null));
-    var {navigate} = this.props.navigation;
-    return(
-      <View>
-        <Text>
-        Photos
-        </Text>
-        <Button
-        onPress={
-          () => navigate("Third")
-        }
-        title = "Upload"
-        />
-        </View>
-
-
-          );
-  }
 
   state ={
       modalVisible: false,
@@ -61,38 +42,59 @@ export default class PhotoScreen extends React.Component {
      return this.state.modalIamge;
   }
 
-  render() {
+  render () {
+    console.log("this.props.navigation = " + util.inspect(this.props.navigation, false, null));
+    var {navigate} = this.props.navigation;
 
-      let images = this.state.images.map((val, key) => {
-          return <TouchableWithoutFeedback key={key}
-                      onPress={() => { this.setModalVisible(true, key)}}>
-                      <View style={styles.imagewrap}>
-                          <ImageElement imgsource={val}></ImageElement>
-                      </View>
-                  </TouchableWithoutFeedback>
+    let images = this.state.images.map((val, key) => {
+        return <TouchableWithoutFeedback key={key}
+                    onPress={() => { this.setModalVisible(true, key)}}>
+                    <View style={styles.imagewrap}>
+                        <ImageElement imgsource={val}></ImageElement>
+                    </View>
+                </TouchableWithoutFeedback>
 
-      });
+    });
 
-      return (
-           <View style={styles.container}>
+    return(
+      <ScrollView>
+        <Text>
+        Photos
+        </Text>
+        <Button
+        onPress={
+          () => navigate("Third")
+        }
+        title = "Upload"
+        />
+        <Modal style={styles.modal} animationType={'fade'}
+               transparent={true} visible={this.state.modalVisible}
+               onRequestClose={() => {}}>
 
-               <Modal style={styles.modal} animationType={'fade'}
-                      transparent={true} visible={this.state.modalVisible}
-                      onRequestClose={() => {}}>
+               <View style={styles.modal}>
+                   <Text style={styles.text}
+                       onPress={() => {this.setModalVisible(false)}}>Close</Text>
+                    <ImageElement imgsource={this.state.modalImage}></ImageElement>
+               </View>
 
-                      <View style={styles.modal}>
-                          <Text style={styles.text}
-                              onPress={() => {this.setModalVisible(false)}}>Close</Text>
-                           <ImageElement imgsource={this.state.modalImage}></ImageElement>
-                      </View>
+        </Modal>
 
-               </Modal>
+        {images}
 
-               {images}
-           </View>
+        </ScrollView>
 
-      );
+        );
+
+
+
+
   }
+
+
+
+
+
+
 }
 
 /*export class App extends Component {
