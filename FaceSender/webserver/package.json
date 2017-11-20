@@ -2,10 +2,13 @@
   "name": "facialrecognition",
   "version": "1.0.0",
   "description": "facial recognition",
+  "engines": {
+    "node": "8.9.1"
+  },
   "main": "index.js",
   "dependencies": {
     "cloudinary": "^1.9.1",
-    "express": "^4.16.1",
+    "express": "4.16.2",
     "express3-handlebars": "^0.5.2",
     "jquery": "^3.2.1",
     "mongoose": "^4.12.0",
@@ -14,6 +17,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

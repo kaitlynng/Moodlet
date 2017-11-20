@@ -23,10 +23,20 @@ cloudinaryFunc = {
           });
       }; //closing for if loop
     }); //closing for .click loop
+
+/*    $('#proceedCheck').change(function() {
+      if($('#proceedCheck').html == 'procced with email!!') {
+        var compiledData = cloudinaryFunc.faceRecogCombined.allDataObj;
+        for(i in compiledData) {
+
+        }
+      }
+    }) */
+    
   }, //closing for setActions
 
   faceRecogCombined: function(galleryName, eventName, imageUrl) {
-    allDataObj = Array();
+    var allDataObj = Array();
     var matches;
     checkAuth.kairos.viewSubjectsInGallery(galleryName, function(data) { //obtain subjects from gallery
       var response = JSON.parse(data.responseText);
@@ -64,23 +74,9 @@ cloudinaryFunc = {
       }; //closing loop to iterate through imageUrl
       console.log('Done iterating through ImageUrl');
       $('#viewData').empty();
-      $('#viewData').html('proceed');
+      $('#proceedCheck').html('proceed with email!!');
     }); //closing loop for viewSubjectsInGallery callback
-
-
-/*    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = function() {
-      var fileData = parseImageData(reader.result);
-      checkAuth.kairos.recognize(fileData, galleryName, function(data) {
-        $('#viewData').empty();
-        $('#viewData').html(data);
-      });
-    }; */
-
-  },
-
-
+  }
 };
 
 checkAuth = {

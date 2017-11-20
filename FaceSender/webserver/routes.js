@@ -1,5 +1,6 @@
 var db = require('./database');
 var cloud = require('./cloudinaryMethods');
+var sendMail = require('./nodemail.js');
 
 module.exports = function(app) {
   app.get('/', function(req, res) {
@@ -33,22 +34,8 @@ module.exports = function(app) {
     });
   });
 
-
-/*  app.post('/retrieveCloudinary', function(req, res) {
-    console.log('entered retrieveCloudinary');
-    var data;
-    cloud.getPhotos().then(function(result) {
-        console.log(JSON.stringify(result.resources[0].url));
-        data = result;
-    }).catch(function(err) {
-      console.log('Error: ' + err)
-    });
-    return data;
+  app.get('/sendmail', function(req, res) {
+    sendMail.sendFunc('kaitlyn.nky@gmail.com', 'hello hello');
+    res.sendFile(__dirname + '/views/main.html');
   });
-
-*/
-  app.post('/RNRequest', function(params, req, res) {
-    console.log('entered RNRequest');
-    var result = cloud.RNGetPhotos(params.galleryName, params.eventName);
-  })
 };
