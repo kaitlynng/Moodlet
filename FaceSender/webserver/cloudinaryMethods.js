@@ -8,6 +8,7 @@ cloudinary.config({
 
 var getPhotos = function (eventName) {
   return new Promise(function(resolve, reject) {
+    console.log('event in getPhotos: ' + eventName);
     cloudinary.v2.api.resources({type: 'upload', prefix: 'test/testDetect'}, function(err, result) {
       if (err) {
         console.log('Error!');

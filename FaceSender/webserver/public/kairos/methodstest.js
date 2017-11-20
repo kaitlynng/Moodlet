@@ -9,16 +9,78 @@ cloudinaryFunc = {
       if ('#retrieveCloudinaryForm :input' != '') {
         galleryName = $('#retrieveCloudinaryForm .gallery-name').val();
         eventName = $('#retrieveCloudinaryForm .event-name').val();
-        $.post('/retrieveCloudinary', eventName)
+        $.post('/retrieveCloudinary', JSON.stringify(eventName)) //cloudinary
           .done(function(data) {
             console.log('successful...?' + JSON.stringify(data));
-            $('#viewData').html(data);
+            imageUrl = Array();
+            for (i=0; i<data.resources.length; i++) {
+              imageUrl.push(String(data.resources[i].url));
+            };
+            $('#viewData').html(String(imageUrl));
+            self.faceRecogCombined(galleryName, eventName, imageUrl);
           }, function(err) {
             console.log('Error in jQuery! ' + err);
           });
+      }; //closing for if loop
+    }); //closing for .click loop
+  }, //closing for setActions
+
+  faceRecogCombined: function(galleryName, eventName, imageUrl) {
+    allDataObj = Array();
+    var matches;
+    checkAuth.kairos.viewSubjectsInGallery(galleryName, function(data) { //obtain subjects from gallery
+      var response = JSON.parse(data.responseText);
+      console.log(response);
+      for(i=0; i<response.subject_ids.length; i++) {
+        allDataObj.push({"subject_id": response.subject_ids[i], "images": []});
       };
-    });
-  }
+      console.log(allDataObj);
+      console.log('cool'); //runs facial recognition
+      for(i=0; i<imageUrl.length;i++) {
+        var image = imageUrl[i];
+        console.log('Image url: ' + String(image));
+        checkAuth.kairos.recognize(String(image), galleryName, function(data) {
+          $('#viewData').empty();
+          console.log(data);
+          $('#viewData').html(data.responseText);
+          matches = JSON.parse(data.responseText);
+          console.log(String(matches.images[0].transaction.status));
+          for (i=0; i<matches.images.length; i++) { //looping through all the faces identified
+            console.log(String(matches.images[i].transaction.status));
+            if(String(matches.images[i].transaction.status) == 'success') {
+              console.log(String(image) + ' matches ' + String(matches[i].transaction.subject_id) + ' with confidence ' + String(matches[i].transaction.confidence));
+              if (parseInt(String(matches.images[i].transaction.confidence)) > 0.5) {
+                for(var i in allDataObj) { //looping through all the subject ids to find match
+                  if (allDataObj[i].subject_id == String(matches[i].transaction.subject_id)) {
+                    allDataObj[i].images.push(String(image));
+                    console.log(allDataObj[i]);
+                  };
+                };
+              };
+            };
+          }; //closing loop for looping through faces identified
+          console.log('matches done for one picture!');
+        });  //closing loop for checkAuth.kairos.recognize;
+      }; //closing loop to iterate through imageUrl
+      console.log('Done iterating through ImageUrl');
+      $('#viewData').empty();
+      $('#viewData').html('proceed');
+    }); //closing loop for viewSubjectsInGallery callback
+
+
+/*    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = function() {
+      var fileData = parseImageData(reader.result);
+      checkAuth.kairos.recognize(fileData, galleryName, function(data) {
+        $('#viewData').empty();
+        $('#viewData').html(data);
+      });
+    }; */
+
+  },
+
+
 };
 
 checkAuth = {
