@@ -6,3 +6,49 @@ https://github.com/kairosinc/api-examples/blob/master/demo/emotion/js/emoDemoApp
 Integrating JS Libraries into React:
 https://facebook.github.io/react/docs/integrating-with-other-libraries.html
 http://tech.oyster.com/using-react-and-jquery-together/
+
+POST request to server from react native:
+Networking with RN -	https://facebook.github.io/react-native/docs/network.html
+Fetch API - 	https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+			https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+Post request example - 	https://stackoverflow.com/questions/43132877/post-data-request-on-server-via-react-native
+
+Cloudinary node-js:
+Cloudinary account details - https://cloudinary.com/console/welcome
+Upload Images documentation (general) - https://cloudinary.com/documentation/upload_images
+Cloudinary npm for node.js - https://github.com/cloudinary/cloudinary_npm
+Node.js integration - https://cloudinary.com/documentation/node_integration
+Node.js Image Upload - https://cloudinary.com/visualweb/display/IMMC/React+Native+Image+Upload
+
+
+Cloudinary React Native:
+Image Upload - https://cloudinary.com/visualweb/display/IMMC/React+Native+Image+Upload
+Upload to wloudinary code - https://gist.github.com/cmcewen/b1ea2464aa88ae32be17
+
+Node.js:
+Making POST request with Nodejs - https://sg.godaddy.com/help/how-to-make-an-http-post-request-in-nodejs-12366
+Stackoverflow post request - https://stackoverflow.com/questions/6158933/how-to-make-an-http-post-request-in-node-js
+Node.js REST API with express (step-by-step) - https://medium.com/@jeffandersen/building-a-node-js-rest-api-with-express-46b0901f29b6
+async calls - https://stackoverflow.com/questions/14220321/how-to-return-the-response-from-an-asynchronous-call
+call jQuery POST to node.js expressjs - https://gist.github.com/diorahman/1520485
+
+Emotion/Face Recognition:
+Kairos account details - https://developer.kairos.com/admin
+PHP Emotion App tutorial - https://github.com/kairosinc/api-examples/blob/master/php-demo/emotion/Emotion_API_Tutorial.md
+Kairos documentation - https://www.kairos.com/docs/api/v1/
+
+Kairos SDK Javascript - https://github.com/kairosinc/Kairos-SDK-Javascript
+
+Heroku:
+Deploying the app -  https://devcenter.heroku.com/articles/getting-started-with-nodejs#deploy-the-app
+Troubleshooting node deploys - https://devcenter.heroku.com/articles/troubleshooting-node-deploys
+
+Promises:
+General Async calls - https://stackoverflow.com/questions/14220321/how-to-return-the-response-from-an-asynchronous-call
+Promises tutorial - https://coligo.io/javascript-promises-plain-simple/
+Pass params to promises - https://stackoverflow.com/questions/35318442/how-to-pass-parameter-to-a-promise-function
+
+Nodemailer:
+Example js - https://github.com/nodemailer/nodemailer/blob/master/examples/full.js
+Nodemailer documentation - https://www.w3schools.com/nodejs/nodejs_email.asp
+Nodemailer site - https://nodemailer.com/about/
