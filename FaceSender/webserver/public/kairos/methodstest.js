@@ -1,7 +1,25 @@
 // var Kairos = require('./kairos');
 
+var emails = [
+  { "poontzeyang": "poontzeyang@gmail.com"},
+  {"kaitlynng": "kaitlyn.nky@gmail.com"},
+  {"srivamsi": "srivamsi@gmail.com"}
+];
+
+var allDataObj = Array();
+
+/* var socket = io.connect('http://localhost:3000');
+socket.on('lol', function (msg) {
+    console.log(msg);
+});
+socket.on('requestfromRN', function (msg) {
+    console.log(msg);
+    $('#btn_retrieveCloudinary').trigger("click");
+}); */
+
 cloudinaryFunc = {
   setActions: function() {
+    $('#proceedCheck').hide();
     var self = this;
     $('#btn_retrieveCloudinary').click(function(e) {
       e.preventDefault();
@@ -24,19 +42,28 @@ cloudinaryFunc = {
       }; //closing for if loop
     }); //closing for .click loop
 
-/*    $('#proceedCheck').change(function() {
-      if($('#proceedCheck').html == 'procced with email!!') {
-        var compiledData = cloudinaryFunc.faceRecogCombined.allDataObj;
-        for(i in compiledData) {
+    $('#btn_proceedEmail').click(function(e) {
+      e.preventDefault();
+      console.log('It changed but dk if correct');
+      console.log(allDataObj);
+      subject_id = allDataObj[0].subject_id;
+      recipient = emails.subject_id;
+      images = allDataObj[0].images;
+      console.log(subject_id);
+      console.log(images);
 
+      $.ajax({
+        url: '/sendmail',
+        type: 'POST',
+        data: JSON.stringify({"recipient": recipient, "images": images}),
+        success: function(response) {
+          console.log('sent mail ' + response);
         }
-      }
-    }) */
-    
+      });
+    });
   }, //closing for setActions
 
   faceRecogCombined: function(galleryName, eventName, imageUrl) {
-    var allDataObj = Array();
     var matches;
     checkAuth.kairos.viewSubjectsInGallery(galleryName, function(data) { //obtain subjects from gallery
       var response = JSON.parse(data.responseText);
@@ -44,8 +71,7 @@ cloudinaryFunc = {
       for(i=0; i<response.subject_ids.length; i++) {
         allDataObj.push({"subject_id": response.subject_ids[i], "images": []});
       };
-      console.log(allDataObj);
-      console.log('cool'); //runs facial recognition
+      console.log(imageUrl.length);
       for(i=0; i<imageUrl.length;i++) {
         var image = imageUrl[i];
         console.log('Image url: ' + String(image));
@@ -54,29 +80,37 @@ cloudinaryFunc = {
           console.log(data);
           $('#viewData').html(data.responseText);
           matches = JSON.parse(data.responseText);
-          console.log(String(matches.images[0].transaction.status));
-          for (i=0; i<matches.images.length; i++) { //looping through all the faces identified
-            console.log(String(matches.images[i].transaction.status));
-            if(String(matches.images[i].transaction.status) == 'success') {
-              console.log(String(image) + ' matches ' + String(matches[i].transaction.subject_id) + ' with confidence ' + String(matches[i].transaction.confidence));
-              if (parseInt(String(matches.images[i].transaction.confidence)) > 0.5) {
-                for(var i in allDataObj) { //looping through all the subject ids to find match
-                  if (allDataObj[i].subject_id == String(matches[i].transaction.subject_id)) {
-                    allDataObj[i].images.push(String(image));
-                    console.log(allDataObj[i]);
+          for (n=0; n<matches.images.length; n++) { //looping through all the faces identified
+            var status = matches.images[n].transaction.status;
+            var subject_Id = matches.images[n].transaction.subject_id;
+            var confidence = matches.images[n].transaction.confidence;
+            console.log('Status: ' + status);
+            if(status == 'success') {
+              console.log(String(image) + ' matches ' + subject_Id + ' with confidence ' + confidence);
+              if (confidence > 0.5) {
+                for(var x in allDataObj) { //looping through all the subject ids to find match
+                  if (allDataObj[x].subject_id == subject_Id) {
+                    console.log('lel');
+                    allDataObj[x].images.push(String(image));
+                    console.log(allDataObj[x]);
                   };
                 };
               };
             };
           }; //closing loop for looping through faces identified
           console.log('matches done for one picture!');
+          console.log(imageUrl.indexOf(image));
+          if(imageUrl.indexOf(image) == (imageUrl.length-1)) {
+            console.log('Done with all the images!');
+            $('#viewData').empty();
+            $('#proceedCheck').show();
+            console.log('test test: ' + JSON.stringify(allDataObj));
+            $('#btn_proceedEmail').trigger("click");
+          };
         });  //closing loop for checkAuth.kairos.recognize;
       }; //closing loop to iterate through imageUrl
-      console.log('Done iterating through ImageUrl');
-      $('#viewData').empty();
-      $('#proceedCheck').html('proceed with email!!');
     }); //closing loop for viewSubjectsInGallery callback
-  }
+  } //faceRecogCombined closing loop
 };
 
 checkAuth = {

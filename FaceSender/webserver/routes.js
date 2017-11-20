@@ -34,8 +34,15 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/sendmail', function(req, res) {
-    sendMail.sendFunc('kaitlyn.nky@gmail.com', 'hello hello');
-    res.sendFile(__dirname + '/views/main.html');
+  app.post('/requestfromRN', function(req, res) {
+    /* io.sockets.emit('requestfromRN', { data: 'banana'}); */
+    return res.send('banana');
+  })
+
+  app.post('/sendmail', function(req, res) {
+    console.log(req.body);
+    data = JSON.parse(req.body);
+    sendMail.sendFunc('kaitlyn.nky@gmail.com', 'hello hello', 'http://www.nasa.gov/centers/goddard/images/content/638831main_globe_east_2048.jpg');
+    res.send('banana');
   });
 };
